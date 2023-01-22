@@ -6,6 +6,7 @@ Listens for new posts at https://neuralmeduza.online (Russian) and broadcasts th
 webhook.
 
 ### Table of Contents
+
 - [Configuration](#Configuration)
 - [Running](#Running)
 - [License](#License)
@@ -19,11 +20,11 @@ Open the `.env.tmp` file and start to edit the configuration.
 
 The following environment variables are available:
 
-| Environment variable                               | Description                  |
-|----------------------------------------------------|------------------------------|
-| NEURAL_MEDUZA_DISCORD_BROADCASTER__REDIS__ENDPOINT | Redis endpoint to connect to |
-| NEURAL_MEDUZA_DISCORD_BROADCASTER__WEBHOOK__URL    | Webhook URL to use           |
-| NEURAL_MEDUZA_DISCORD_BROADCASTER__FETCHER__DELAY  | Fetching delay               |
+| Environment variable                                 | Description                  |
+|------------------------------------------------------|------------------------------|
+| `NEURAL_MEDUZA_DISCORD_BROADCASTER__REDIS__ENDPOINT` | Redis endpoint to connect to |
+| `NEURAL_MEDUZA_DISCORD_BROADCASTER__WEBHOOK__URL`    | Webhook URL to use           |
+| `NEURAL_MEDUZA_DISCORD_BROADCASTER__FETCHER__DELAY`  | Fetching delay               |
 
 Save the file as `.env` stripping the `.tmp` suffix.
 
