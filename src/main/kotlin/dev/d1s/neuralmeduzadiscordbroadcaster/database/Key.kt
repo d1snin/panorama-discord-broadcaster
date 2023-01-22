@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 Mikhail Titov
+ * Copyright 2023 Mikhail Titov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
-package dev.d1s.app.config
+package dev.d1s.neuralmeduzadiscordbroadcaster.database
 
-data class ApplicationConfig(
-    val something: String
-)
+object Key {
+
+    private const val PREFIX = "nmdb"
+
+    const val LATEST_POST_URL = "$PREFIX.latest_post_url"
+}

@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-rootProject.name = "neural-meduza-discord-broadcaster"
+package dev.d1s.neuralmeduzadiscordbroadcaster.util
 
-pluginManagement {
-    plugins {
-        val kotlinVersion: String by settings
+import dev.d1s.neuralmeduzadiscordbroadcaster.database.RedisClient
 
-        kotlin("jvm") version kotlinVersion
-        kotlin("kapt") version kotlinVersion
-    }
+suspend fun RedisClient.setAndPersist(key: String, value: String) {
+    set(key, value)
+    persist(key)
 }

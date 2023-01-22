@@ -14,18 +14,28 @@
  * limitations under the License.
  */
 
-package dev.d1s.app
+package dev.d1s.neuralmeduzadiscordbroadcaster
 
+import dev.d1s.neuralmeduzadiscordbroadcaster.database.RedisClientFactory
 import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import org.lighthousegames.logging.logging
 
-class Application : KoinComponent {
+class NeuralMeduzaDiscordBroadcasterApplication : KoinComponent {
+
+    private val broadcaster by inject<PostBroadcaster>()
+
+    private val redisClientFactory by inject<RedisClientFactory>()
 
     private val log = logging()
 
-    fun run() {
+    suspend fun run() {
         log.i {
-            "Application is starting."
+            "Neural Meduza Discord broadcaster is starting..."
         }
+
+        redisClientFactory.connect()
+
+        broadcaster.start()
     }
 }

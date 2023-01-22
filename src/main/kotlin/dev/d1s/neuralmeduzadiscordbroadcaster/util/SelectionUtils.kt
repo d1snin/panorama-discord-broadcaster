@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 Mikhail Titov
+ * Copyright 2023 Mikhail Titov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-rootProject.name = "neural-meduza-discord-broadcaster"
+package dev.d1s.neuralmeduzadiscordbroadcaster.util
 
-pluginManagement {
-    plugins {
-        val kotlinVersion: String by settings
+import org.jsoup.nodes.Document
+import org.jsoup.nodes.Element
 
-        kotlin("jvm") version kotlinVersion
-        kotlin("kapt") version kotlinVersion
-    }
-}
+
+inline fun trySelect(selectionName: String, block: () -> Element?) = block() ?: error("Could not extract $selectionName")
+
+fun Document.getFirstByClass(className: String) = getElementsByClass(className).first()

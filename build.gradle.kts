@@ -29,7 +29,7 @@ group = projectGroup
 version = projectVersion
 
 application {
-    mainClass.set("dev.d1s.app.ApplicationKt")
+    mainClass.set("dev.d1s.neuralmeduzadiscordbroadcaster.MainKt")
 }
 
 repositories {
@@ -44,6 +44,12 @@ dependencies {
 
     val koinVersion: String by project
 
+    val discordWebhooksVersion: String by project
+
+    val jsoupVersion: String by project
+
+    val kredsVersion: String by project
+
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib"))
 
@@ -54,6 +60,12 @@ dependencies {
 
     implementation("io.insert-koin:koin-core:$koinVersion")
     implementation("io.insert-koin:koin-logger-slf4j:$koinVersion")
+
+    implementation("club.minnced:discord-webhooks:$discordWebhooksVersion")
+
+    implementation("org.jsoup:jsoup:$jsoupVersion")
+
+    implementation("io.github.crackthecodeabhi:kreds:$kredsVersion")
 }
 
 tasks.withType<KotlinCompile> {

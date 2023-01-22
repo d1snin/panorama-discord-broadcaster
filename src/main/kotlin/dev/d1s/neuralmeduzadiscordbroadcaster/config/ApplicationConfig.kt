@@ -14,13 +14,22 @@
  * limitations under the License.
  */
 
-rootProject.name = "neural-meduza-discord-broadcaster"
+package dev.d1s.neuralmeduzadiscordbroadcaster.config
 
-pluginManagement {
-    plugins {
-        val kotlinVersion: String by settings
+data class ApplicationConfig(
+    val webhook: Webhook,
+    val redis: Redis,
+    val fetcher: Fetcher
+) {
+    data class Webhook(
+        val url: String
+    )
 
-        kotlin("jvm") version kotlinVersion
-        kotlin("kapt") version kotlinVersion
-    }
+    data class Redis(
+        val endpoint: String
+    )
+
+    data class Fetcher(
+        val delay: Long
+    )
 }

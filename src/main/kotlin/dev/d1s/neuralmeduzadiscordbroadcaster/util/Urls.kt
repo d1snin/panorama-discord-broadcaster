@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 Mikhail Titov
+ * Copyright 2023 Mikhail Titov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,9 @@
  * limitations under the License.
  */
 
-rootProject.name = "neural-meduza-discord-broadcaster"
+package dev.d1s.neuralmeduzadiscordbroadcaster.util
 
-pluginManagement {
-    plugins {
-        val kotlinVersion: String by settings
+object Urls {
 
-        kotlin("jvm") version kotlinVersion
-        kotlin("kapt") version kotlinVersion
-    }
+    const val NEURAL_MEDUZA_BASE_URL: Url = "https://neuralmeduza.online/"
 }

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package dev.d1s.app.config
+package dev.d1s.neuralmeduzadiscordbroadcaster.config
 
 import com.sksamuel.hoplite.ConfigLoaderBuilder
 import com.sksamuel.hoplite.sources.EnvironmentVariablesPropertySource
 import org.lighthousegames.logging.logging
 
-private const val ENV_VAR_PREFIX = "APP__"
+private const val ENV_VAR_PREFIX = "NEURAL_MEDUZA_DISCORD_BROADCASTER__"
 
 interface ApplicationConfigFactory {
 

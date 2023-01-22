@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-rootProject.name = "neural-meduza-discord-broadcaster"
+package dev.d1s.neuralmeduzadiscordbroadcaster
 
-pluginManagement {
-    plugins {
-        val kotlinVersion: String by settings
+import dev.d1s.neuralmeduzadiscordbroadcaster.di.setupDi
+import kotlinx.coroutines.runBlocking
 
-        kotlin("jvm") version kotlinVersion
-        kotlin("kapt") version kotlinVersion
+fun main() {
+    setupDi()
+
+    runBlocking {
+        NeuralMeduzaDiscordBroadcasterApplication().run()
     }
 }
