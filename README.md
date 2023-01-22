@@ -6,12 +6,8 @@ Listens for new posts at https://neuralmeduza.online (Russian) and broadcasts th
 webhook.
 
 ### Table of Contents
-- 
-
 - [Configuration](#Configuration)
 - [Running](#Running)
-- [Usage](#Usage)
-- [Code of Conduct](#Code of Conduct)
 - [License](#License)
 
 ### Configuration
