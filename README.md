@@ -1,35 +1,33 @@
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-[//]: # ([![Java CI with Gradle]&#40;https://github.com/d1snin/kotlin-jvm-application-template/actions/workflows/gradle.yml/badge.svg?branch=main&#41;]&#40;https://github.com/d1snin/kotlin-jvm-application-template/actions/workflows/gradle.yml&#41;)
+### Neural Meduza Discord Broadcaster
 
-### kotlin-jvm-application-template
-
-Description.
+Listens for new posts at https://neuralmeduza.online (Russian) and broadcasts them into a Discord channel via configured
+webhook.
 
 ### Table of Contents
+- 
 
-- [Features](#Features)
 - [Configuration](#Configuration)
 - [Running](#Running)
 - [Usage](#Usage)
 - [Code of Conduct](#Code of Conduct)
 - [License](#License)
 
-### Features
-
-List of features.
-
 ### Configuration
 
-The application is being configured through `.env` file, which is
+The application is being configured through the `.env` file, which is
 being loaded as environment variables.
 
 Open the `.env.tmp` file and start to edit the configuration.
 
 The following environment variables are available:
 
-| Environment variable | Description |
-|----------------------|-------------|
+| Environment variable                               | Description                  |
+|----------------------------------------------------|------------------------------|
+| NEURAL_MEDUZA_DISCORD_BROADCASTER__REDIS__ENDPOINT | Redis endpoint to connect to |
+| NEURAL_MEDUZA_DISCORD_BROADCASTER__WEBHOOK__URL    | Webhook URL to use           |
+| NEURAL_MEDUZA_DISCORD_BROADCASTER__FETCHER__DELAY  | Fetching delay               |
 
 Save the file as `.env` stripping the `.tmp` suffix.
 
@@ -43,10 +41,6 @@ docker-compose -f ./docker/docker-compose.yml up --build
 ```
 
 Docker configuration is located at `./docker`
-
-### Usage
-
-Usage instructions.
 
 ### Code of Conduct
 
