@@ -65,6 +65,10 @@ class DefaultPostBroadcaster : PostBroadcaster, KoinComponent {
             launchMessage(message)
         }
 
+        log.i {
+            "NMDB is ready."
+        }
+
         job.join()
     }
 

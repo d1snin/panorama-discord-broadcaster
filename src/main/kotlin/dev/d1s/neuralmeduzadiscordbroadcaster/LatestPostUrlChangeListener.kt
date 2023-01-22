@@ -95,7 +95,7 @@ class DefaultLatestPostUrlChangeListener : LatestPostUrlChangeListener, KoinComp
             val savedPostUrl = getLatestPostUrl()
 
             if (currentPostUrl != savedPostUrl) {
-                log.d {
+                log.i {
                     "Change detected..."
                 }
 
@@ -103,7 +103,7 @@ class DefaultLatestPostUrlChangeListener : LatestPostUrlChangeListener, KoinComp
 
                 handler(currentPostUrl)
 
-                log.d {
+                log.i {
                     "Handler proceeded."
                 }
             } else {
