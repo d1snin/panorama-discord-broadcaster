@@ -16,10 +16,14 @@
 
 package dev.d1s.neuralmeduzadiscordbroadcaster.config
 
+import dev.d1s.neuralmeduzadiscordbroadcaster.translation.LanguageCode
+
 data class ApplicationConfig(
     val webhook: Webhook,
     val redis: Redis,
-    val fetcher: Fetcher
+    val fetcher: Fetcher,
+    val yandexCloud: YandexCloudCredentials? = null,
+    val translation: Translation? = null
 ) {
     data class Webhook(
         val url: String
@@ -32,4 +36,16 @@ data class ApplicationConfig(
     data class Fetcher(
         val delay: Long
     )
+
+    data class YandexCloudCredentials(
+        val iamToken: String,
+        val folderId: String
+    )
+
+    data class Translation(
+        val targetLanguageCode: String
+    )
 }
+
+fun ApplicationConfig.Translation?.valid() =
+    this != null && targetLanguageCode != LanguageCode.SOURCE_LANGUAGE_CODE

@@ -22,6 +22,7 @@ import club.minnced.discord.webhook.send.WebhookEmbedBuilder
 import club.minnced.discord.webhook.send.WebhookMessage
 import club.minnced.discord.webhook.send.WebhookMessageBuilder
 import dev.d1s.neuralmeduzadiscordbroadcaster.di.Qualifier
+import dev.d1s.neuralmeduzadiscordbroadcaster.translation.PostTranslator
 import dev.d1s.neuralmeduzadiscordbroadcaster.util.Urls
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -45,6 +46,8 @@ class DefaultPostBroadcaster : PostBroadcaster, KoinComponent {
 
     private val postParser by inject<Parser<FetchedPost, Post>>(Qualifier.PostParser)
 
+    private val postTranslator by inject<PostTranslator>()
+
     private val broadcastingScope = CoroutineScope(Dispatchers.IO)
 
     private val log = logging()
@@ -58,7 +61,9 @@ class DefaultPostBroadcaster : PostBroadcaster, KoinComponent {
             val fetchedPost = postFetcher.fetch(url)
             val post = postParser.parse(fetchedPost)
 
-            val embed = post.toDiscordEmbed()
+            val translatedPost = postTranslator.translate(post) ?: post
+
+            val embed = translatedPost.toDiscordEmbed()
 
             val message = makeMessage(embed)
 

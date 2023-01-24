@@ -50,6 +50,8 @@ dependencies {
 
     val kredsVersion: String by project
 
+    val ktorVersion: String by project
+
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib"))
 
@@ -66,6 +68,10 @@ dependencies {
     implementation("org.jsoup:jsoup:$jsoupVersion")
 
     implementation("io.github.crackthecodeabhi:kreds:$kredsVersion")
+
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
+    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+    implementation("io.ktor:ktor-serialization-jackson-jvm:$ktorVersion")
 }
 
 tasks.withType<KotlinCompile> {

@@ -17,13 +17,20 @@
 package dev.d1s.neuralmeduzadiscordbroadcaster.di
 
 import dev.d1s.neuralmeduzadiscordbroadcaster.*
+import dev.d1s.neuralmeduzadiscordbroadcaster.config.ApplicationConfig
 import dev.d1s.neuralmeduzadiscordbroadcaster.config.ApplicationConfigFactory
 import dev.d1s.neuralmeduzadiscordbroadcaster.config.ApplicationConfigFactoryImpl
+import dev.d1s.neuralmeduzadiscordbroadcaster.config.valid
 import dev.d1s.neuralmeduzadiscordbroadcaster.database.DefaultRedisClientFactory
 import dev.d1s.neuralmeduzadiscordbroadcaster.database.RedisClientFactory
+import dev.d1s.neuralmeduzadiscordbroadcaster.translation.DefaultPostTranslator
+import dev.d1s.neuralmeduzadiscordbroadcaster.translation.PostTranslator
+import dev.d1s.neuralmeduzadiscordbroadcaster.translation.TranslationService
+import dev.d1s.neuralmeduzadiscordbroadcaster.translation.YandexCloudTranslationService
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
+import org.koin.core.scope.Scope
 import org.koin.dsl.module
 import org.koin.logger.SLF4JLogger
 
@@ -41,6 +48,7 @@ fun setupDi() {
             changeListener()
             fetchers()
             parsers()
+            translation()
         }
 
         modules(mainModule)
@@ -96,3 +104,24 @@ fun Module.parsers() {
         qualifier = Qualifier.PostParser
     }
 }
+
+fun Module.translation() {
+    single<PostTranslator?> {
+        ifValidTranslationConfig {
+            DefaultPostTranslator()
+        }
+    }
+
+    single<TranslationService?> {
+        ifValidTranslationConfig {
+            YandexCloudTranslationService()
+        }
+    }
+}
+
+private inline fun <R> Scope.ifValidTranslationConfig(bean: () -> R) =
+    if (get<ApplicationConfig>().translation.valid()) {
+        bean()
+    } else {
+        null
+    }
