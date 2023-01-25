@@ -20,14 +20,14 @@ Open the `.env.tmp` file and start to edit the configuration.
 
 The following environment variables are available:
 
-| Environment variable                                                   | Description                               |
-|------------------------------------------------------------------------|-------------------------------------------|
-| `NEURAL_MEDUZA_DISCORD_BROADCASTER__REDIS__ENDPOINT`                   | Redis endpoint to connect to              |
-| `NEURAL_MEDUZA_DISCORD_BROADCASTER__WEBHOOK__URL`                      | Webhook URL to use                        |
-| `NEURAL_MEDUZA_DISCORD_BROADCASTER__FETCHER__DELAY`                    | Fetching delay                            |
-| `NEURAL_MEDUZA_DISCORD_BROADCASTER__YANDEX_CLOUD__IAM_TOKEN`           | Optional. Yandex Cloud IAM token          |
-| `NEURAL_MEDUZA_DISCORD_BROADCASTER__YANDEX_CLOUD__FOLDER_ID`           | Optional. Yandex Cloud folder ID          |
-| `NEURAL_MEDUZA_DISCORD_BROADCASTER__TRANSLATION__TARGET_LANGUAGE_CODE` | Optional. Target language to translate to |
+| Environment variable                                                   | Description                                          |
+|------------------------------------------------------------------------|------------------------------------------------------|
+| `NEURAL_MEDUZA_DISCORD_BROADCASTER__REDIS__ENDPOINT`                   | Redis endpoint to connect to                         |
+| `NEURAL_MEDUZA_DISCORD_BROADCASTER__WEBHOOK__URL`                      | Webhook URL to use                                   |
+| `NEURAL_MEDUZA_DISCORD_BROADCASTER__FETCHER__DELAY`                    | Fetching delay                                       |
+| `NEURAL_MEDUZA_DISCORD_BROADCASTER__YANDEX_CLOUD__API_KEY`             | Optional. Yandex Cloud API key for a service account |
+| `NEURAL_MEDUZA_DISCORD_BROADCASTER__YANDEX_CLOUD__FOLDER_ID`           | Optional. Yandex Cloud folder ID                     |
+| `NEURAL_MEDUZA_DISCORD_BROADCASTER__TRANSLATION__TARGET_LANGUAGE_CODE` | Optional. Target language to translate to            |
 
 Save the file as `.env` stripping the `.tmp` suffix.
 

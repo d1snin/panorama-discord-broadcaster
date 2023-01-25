@@ -23,12 +23,14 @@ import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
+import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.jackson.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import org.lighthousegames.logging.logging
 
 @JvmInline
 value class TranslatedText(
@@ -54,15 +56,21 @@ class YandexCloudTranslationService : TranslationService, KoinComponent {
 
     private val httpClient = makeHttpClient()
 
+    private val log = logging()
+
     override suspend fun translateText(text: String): TranslatedText = withContext(Dispatchers.IO) {
-        val translateRequest = makeTranslationRequest(text)
+        val translationRequest = makeTranslationRequest(text)
 
         val translationResponse = httpClient.post(YANDEX_TRANSLATION_SERVICE_URL) {
             contentType(ContentType.Application.Json)
-            setBody(translateRequest)
-        }.body<TranslationResponse>()
+            setBody(translationRequest)
+        }
 
-        val translatedText = translationResponse.translations.first().text
+        log.d {
+            "Translation response text: ${translationResponse.bodyAsText()}"
+        }
+
+        val translatedText = translationResponse.body<TranslationResponse>().translations.first().text
 
         TranslatedText(translatedText)
     }
@@ -73,7 +81,7 @@ class YandexCloudTranslationService : TranslationService, KoinComponent {
         }
 
         defaultRequest {
-            bearerAuth(yandexCloudCredentials.iamToken)
+            header(HttpHeaders.Authorization, "Api-Key ${yandexCloudCredentials.apiKey}")
         }
     }
 

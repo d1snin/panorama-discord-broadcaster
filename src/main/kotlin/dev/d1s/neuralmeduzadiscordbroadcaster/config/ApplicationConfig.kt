@@ -38,7 +38,7 @@ data class ApplicationConfig(
     )
 
     data class YandexCloudCredentials(
-        val iamToken: String,
+        val apiKey: String,
         val folderId: String
     )
 
