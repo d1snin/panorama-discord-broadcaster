@@ -134,7 +134,24 @@ class DefaultPostBroadcaster : PostBroadcaster, KoinComponent {
     }
 
     private fun WebhookEmbedBuilder.setDescription(post: Post) {
-        setDescription(post.text)
+        val description = buildString {
+            val separator = " / "
+
+            val categories = post.categories.joinToString(separator) {
+                it.name.bold()
+            }
+
+            appendLine()
+
+            append(categories)
+
+            appendLine()
+            appendLine()
+
+            append(post.text)
+        }
+
+        setDescription(description)
     }
 
     private fun WebhookEmbedBuilder.setImageUrl(post: Post) {
@@ -155,6 +172,8 @@ class DefaultPostBroadcaster : PostBroadcaster, KoinComponent {
     private fun WebhookEmbedBuilder.setTimestamp(post: Post) {
         setTimestamp(post.date)
     }
+
+    private fun String.bold() = "**$this**"
 
     private companion object {
 
