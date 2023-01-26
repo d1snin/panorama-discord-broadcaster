@@ -31,7 +31,7 @@ class NeuralMeduzaDiscordBroadcasterApplication : KoinComponent {
 
     suspend fun run() {
         log.i {
-            "Neural Meduza Discord broadcaster is starting..."
+            "Neural Meduza Discord broadcaster ($VERSION) is starting..."
         }
 
         redisClientFactory.connect()
