@@ -52,16 +52,6 @@ class DefaultLatestPostUrlChangeListener : LatestPostUrlChangeListener, KoinComp
 
     private val listeningScope = CoroutineScope(Dispatchers.Default)
 
-    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        log.e {
-            "Failure while listening for changes: ${throwable.message}"
-        }
-
-        log.d {
-            throwable.stackTraceToString()
-        }
-    }
-
     private val log = logging()
 
     override suspend fun onPostUrlChange(handler: PostUrlChangeHandler): Job {
@@ -73,8 +63,8 @@ class DefaultLatestPostUrlChangeListener : LatestPostUrlChangeListener, KoinComp
             "Launching listener job..."
         }
 
-        val launchedJob = listeningScope.launch(exceptionHandler) {
-            listenToChanges(handler)
+        val launchedJob = listeningScope.launch {
+            listenForChangesCatching(handler)
         }
 
         job = launchedJob
@@ -82,7 +72,17 @@ class DefaultLatestPostUrlChangeListener : LatestPostUrlChangeListener, KoinComp
         return launchedJob
     }
 
-    private suspend fun listenToChanges(handler: PostUrlChangeHandler) {
+    private suspend fun listenForChangesCatching(handler: PostUrlChangeHandler) {
+        try {
+            listenForChanges(handler)
+        } catch (throwable: Throwable) {
+            log.e(throwable) {
+                "Failure while listening for changes: ${throwable.message}"
+            }
+        }
+    }
+
+    private suspend fun listenForChanges(handler: PostUrlChangeHandler) {
         while (true) {
             log.d {
                 "Checking for changes..."

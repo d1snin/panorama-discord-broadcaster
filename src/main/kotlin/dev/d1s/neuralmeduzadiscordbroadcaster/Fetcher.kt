@@ -17,8 +17,27 @@
 package dev.d1s.neuralmeduzadiscordbroadcaster
 
 import dev.d1s.neuralmeduzadiscordbroadcaster.util.Url
+import kotlinx.coroutines.delay
+import org.lighthousegames.logging.logging
 
 interface Fetcher<R : Any> {
 
     suspend fun fetch(url: Url? = null): R
+
+    suspend fun fetchCatching(url: Url? = null): R = try {
+        fetch(url)
+    } catch (throwable: Throwable) {
+        log.e {
+            "Failure while fetching from $url: ${throwable.message}. Retrying in 5 seconds..."
+        }
+
+        delay(5_000)
+
+        fetchCatching(url)
+    }
+
+    private companion object {
+
+        private val log = logging()
+    }
 }
