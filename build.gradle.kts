@@ -20,7 +20,6 @@ plugins {
     kotlin("jvm")
     kotlin("kapt")
     application
-
     id("com.github.ben-manes.versions")
 }
 
