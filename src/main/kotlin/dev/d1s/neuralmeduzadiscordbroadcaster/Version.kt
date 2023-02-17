@@ -16,4 +16,4 @@
 
 package dev.d1s.neuralmeduzadiscordbroadcaster
 
-const val VERSION = "1.2.2"
+const val VERSION = "1.2.3"
