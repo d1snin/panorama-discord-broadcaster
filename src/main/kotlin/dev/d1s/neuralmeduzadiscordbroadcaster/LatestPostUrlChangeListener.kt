@@ -77,7 +77,9 @@ class DefaultLatestPostUrlChangeListener : LatestPostUrlChangeListener, KoinComp
             listenForChanges(handler)
         } catch (throwable: Throwable) {
             log.e(throwable) {
-                "Failure while listening for changes: ${throwable.message}"
+                "Failure while listening for changes: ${throwable.message}. Entering the loop again..."
+
+                listenForChanges(handler)
             }
         }
     }
@@ -88,7 +90,7 @@ class DefaultLatestPostUrlChangeListener : LatestPostUrlChangeListener, KoinComp
                 "Checking for changes..."
             }
 
-            val fetchedMainPage = mainPageFetcher.fetch()
+            val fetchedMainPage = mainPageFetcher.fetchCatching()
             val mainPage = mainPageParser.parse(fetchedMainPage)
 
             val currentPostUrl = mainPage.latestPostUrl
