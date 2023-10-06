@@ -14,17 +14,11 @@
  * limitations under the License.
  */
 
-rootProject.name = "panorama-discord-broadcaster"
+package dev.d1s.panoramadiscordbroadcaster.util
 
-pluginManagement {
-    plugins {
-        val kotlinVersion: String by settings
+import dev.d1s.panoramadiscordbroadcaster.database.RedisClient
 
-        val versionsPluginVersion: String by settings
-
-        kotlin("jvm") version kotlinVersion
-        kotlin("kapt") version kotlinVersion
-
-        id("com.github.ben-manes.versions") version versionsPluginVersion
-    }
+suspend fun RedisClient.setAndPersist(key: String, value: String) {
+    set(key, value)
+    persist(key)
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 Mikhail Titov
+ * Copyright 2023 Mikhail Titov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-rootProject.name = "panorama-discord-broadcaster"
+package dev.d1s.panoramadiscordbroadcaster.di
 
-pluginManagement {
-    plugins {
-        val kotlinVersion: String by settings
+import org.koin.core.qualifier.named
 
-        val versionsPluginVersion: String by settings
+object Qualifier {
 
-        kotlin("jvm") version kotlinVersion
-        kotlin("kapt") version kotlinVersion
+    val MainPageFetcher = named("main-page-fetcher")
+    val PostFetcher = named("post-fetcher")
 
-        id("com.github.ben-manes.versions") version versionsPluginVersion
-    }
+    val MainPageParser = named("main-page-parser")
+    val PostParser = named("post-parser")
 }

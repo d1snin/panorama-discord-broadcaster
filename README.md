@@ -1,8 +1,8 @@
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-### Neural Meduza Discord Broadcaster
+### Panorama Discord Broadcaster
 
-Listens for new posts at https://neuralmeduza.online (Russian) and broadcasts them into a Discord channel via configured
+Listens for new posts at https://panorama.pub (Russian) and broadcasts them into a Discord channel via configured
 webhook.
 
 ### Table of Contents

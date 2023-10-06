@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-rootProject.name = "panorama-discord-broadcaster"
+package dev.d1s.panoramadiscordbroadcaster
 
-pluginManagement {
-    plugins {
-        val kotlinVersion: String by settings
+import dev.d1s.panoramadiscordbroadcaster.di.setupDi
+import kotlinx.coroutines.runBlocking
 
-        val versionsPluginVersion: String by settings
+fun main() {
+    setupDi()
 
-        kotlin("jvm") version kotlinVersion
-        kotlin("kapt") version kotlinVersion
-
-        id("com.github.ben-manes.versions") version versionsPluginVersion
+    runBlocking {
+        NeuralMeduzaDiscordBroadcasterApplication().run()
     }
 }

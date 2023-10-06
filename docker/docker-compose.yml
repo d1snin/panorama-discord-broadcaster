@@ -1,32 +1,32 @@
 version: '3.8'
 
 volumes:
-  nmdb-redis-data:
+  pdb-redis-data:
     driver: local
 
 networks:
-  nmdb-net:
+  pdb-net:
     driver: bridge
 
 services:
-  neural-meduza-discord-broadcaster:
-    image: neural-meduza-discord-broadcaster:latest
-    container_name: neural-meduza-discord-broadcaster
+  panorama-discord-broadcaster:
+    image: panorama-discord-broadcaster:latest
+    container_name: panorama-discord-broadcaster
     build:
       context: ../
       dockerfile: ./docker/Dockerfile
     env_file: ../.env
     networks:
-      - nmdb-net
+      - pdb-net
     restart: always
 
-  neural-meduza-discord-broadcaster-redis:
+  panorama-discord-broadcaster-redis:
     image: redis:latest
-    container_name: neural-meduza-discord-broadcaster-redis
+    container_name: panorama-discord-broadcaster-redis
     expose:
       - 6379
     volumes:
-      - nmdb-redis-data:/data
+      - pdb-redis-data:/data
     networks:
-      - nmdb-net
+      - pdb-net
     restart: always

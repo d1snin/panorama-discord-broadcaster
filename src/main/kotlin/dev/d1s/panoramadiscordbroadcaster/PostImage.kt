@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 Mikhail Titov
+ * Copyright 2023 Mikhail Titov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,11 @@
  * limitations under the License.
  */
 
-rootProject.name = "panorama-discord-broadcaster"
+package dev.d1s.panoramadiscordbroadcaster
 
-pluginManagement {
-    plugins {
-        val kotlinVersion: String by settings
+import dev.d1s.panoramadiscordbroadcaster.util.Url
 
-        val versionsPluginVersion: String by settings
-
-        kotlin("jvm") version kotlinVersion
-        kotlin("kapt") version kotlinVersion
-
-        id("com.github.ben-manes.versions") version versionsPluginVersion
-    }
-}
+@JvmInline
+value class PostImage(
+    val url: Url
+)

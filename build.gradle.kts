@@ -30,7 +30,7 @@ group = projectGroup
 version = projectVersion
 
 application {
-    mainClass.set("dev.d1s.neuralmeduzadiscordbroadcaster.MainKt")
+    mainClass.set("dev.d1s.panoramadiscordbroadcaster.MainKt")
 }
 
 repositories {

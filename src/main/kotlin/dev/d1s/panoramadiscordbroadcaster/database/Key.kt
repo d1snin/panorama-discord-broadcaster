@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 Mikhail Titov
+ * Copyright 2023 Mikhail Titov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,11 @@
  * limitations under the License.
  */
 
-rootProject.name = "panorama-discord-broadcaster"
+package dev.d1s.panoramadiscordbroadcaster.database
 
-pluginManagement {
-    plugins {
-        val kotlinVersion: String by settings
+object Key {
 
-        val versionsPluginVersion: String by settings
+    private const val PREFIX = "pdb"
 
-        kotlin("jvm") version kotlinVersion
-        kotlin("kapt") version kotlinVersion
-
-        id("com.github.ben-manes.versions") version versionsPluginVersion
-    }
+    const val LATEST_POST_URL = "$PREFIX.latest_post_url"
 }
