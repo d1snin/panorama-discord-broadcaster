@@ -20,7 +20,7 @@ import com.sksamuel.hoplite.ConfigLoaderBuilder
 import com.sksamuel.hoplite.sources.EnvironmentVariablesPropertySource
 import org.lighthousegames.logging.logging
 
-private const val ENV_VAR_PREFIX = "NEURAL_MEDUZA_DISCORD_BROADCASTER__"
+private const val ENV_VAR_PREFIX = "PANORAMA_DISCORD_BROADCASTER__"
 
 interface ApplicationConfigFactory {
 
