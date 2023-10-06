@@ -16,7 +16,11 @@
 
 package dev.d1s.panoramadiscordbroadcaster.util
 
+import io.ktor.http.*
+
 object Urls {
 
-    const val PANORAMA_BASE_URL: Url = "https://neuralmeduza.online/"
+    const val PANORAMA_BASE_URL: Url = "https://panorama.pub/"
+
+    val PanoramaBaseUrlBuilder get() = URLBuilder(PANORAMA_BASE_URL)
 }

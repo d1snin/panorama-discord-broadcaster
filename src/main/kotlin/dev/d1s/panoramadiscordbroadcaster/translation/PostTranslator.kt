@@ -42,9 +42,17 @@ class DefaultPostTranslator : PostTranslator, KoinComponent {
 
         val translatedTitle = translate(post.title)
         val translatedCategories = translateCategories(post.categories)
+        val translatedAuthor = translate(post.author)
         val translatedText = translate(post.text)
 
-        return Post(post.url, translatedTitle, translatedCategories, post.date, post.image, translatedText)
+        return Post(
+            post.url,
+            translatedTitle,
+            translatedCategories,
+            translatedAuthor,
+            post.image,
+            translatedText
+        )
     }
 
     private suspend fun translateCategories(categories: List<PostCategory>) =

@@ -17,12 +17,12 @@
 package dev.d1s.panoramadiscordbroadcaster
 
 import dev.d1s.panoramadiscordbroadcaster.util.CssName
-import dev.d1s.panoramadiscordbroadcaster.util.getFirstByClass
+import dev.d1s.panoramadiscordbroadcaster.util.XPath
 import dev.d1s.panoramadiscordbroadcaster.util.trySelect
+import dev.d1s.panoramadiscordbroadcaster.util.xpath
 import org.jsoup.nodes.Document
 import org.koin.core.component.KoinComponent
 import org.lighthousegames.logging.logging
-import java.time.Instant
 
 class PostParser : Parser<FetchedPost, Post>, KoinComponent {
 
@@ -38,16 +38,21 @@ class PostParser : Parser<FetchedPost, Post>, KoinComponent {
         val url = obj.url
         val title = document.extractTitle()
         val categories = document.extractCategories()
-        val date = document.extractPublishedTime()
+        val author = document.extractAuthor()
         val image = document.extractImage()
-        val postText = document.extractPostText()
+        val postText = document.extractText()
 
-        return Post(url, title, categories, date, image, postText)
+        val post = Post(url, title, categories, author, image, postText)
+
+        log.d {
+            "Parsed post contents: $post"
+        }
+
+        return post
     }
 
     private fun Document.extractTitle(): String {
         val titleHeading = findTitle()
-
         return titleHeading.text()
     }
 
@@ -55,31 +60,27 @@ class PostParser : Parser<FetchedPost, Post>, KoinComponent {
         val categoriesContainer = findCategoriesContainer()
 
         val categories = categoriesContainer.getElementsByTag(CssName.LINK_TAG).map { element ->
-            val text = element.text().replaceFirstChar {
-                it.uppercase()
-            }
-
+            val text = element.text()
             PostCategory(name = text)
         }
 
         return categories
     }
 
-    private fun Document.extractPublishedTime(): Instant {
-        val timeMeta = extractPublishedTimeMeta()
-        val rawDate = timeMeta.attr(CssName.META_CONTENT_ATTRIBUTE)
-
-        return Instant.parse(rawDate)
+    private fun Document.extractAuthor(): String {
+        val authorMeta = findAuthor()
+        return authorMeta.attr(CssName.CONTENT_ATTRIBUTE)
     }
 
     private fun Document.extractImage(): PostImage {
-        val image = findImage()
-        val imageSrc = image.attr(CssName.SRC_ATTRIBUTE)
+        val component = findImageComponent()
+        val webpImageSrc = component.attr(CssName.DATA_BG_IMAGE_WEBP_ATTRIBUTE)
+        val imageSrc = webpImageSrc.removeSuffix(".webp")
 
         return PostImage(url = imageSrc)
     }
 
-    private fun Document.extractPostText(): String {
+    private fun Document.extractText(): String {
         val textContainer = findTextContainer()
 
         val paragraphs = textContainer.getElementsByTag(CssName.PARAGRAPH_TAG)
@@ -93,31 +94,28 @@ class PostParser : Parser<FetchedPost, Post>, KoinComponent {
         }
     }
 
-    private fun Document.findTitle() = trySelect("title (by .${CssName.POST_TITLE_CLASS})") {
-        getFirstByClass(CssName.POST_TITLE_CLASS)
-    }
+    private fun Document.findTitle() =
+        trySelect("title (by ${XPath.POST_TITLE})") {
+            xpath(XPath.POST_TITLE)
+        }
 
     private fun Document.findCategoriesContainer() =
-        trySelect("categories (by ${CssName.CATEGORIES_CONTAINER_CLASS})") {
-            getFirstByClass(CssName.CATEGORIES_CONTAINER_CLASS)
+        trySelect("categories (by ${XPath.POST_CATEGORIES})") {
+            xpath(XPath.POST_CATEGORIES)
         }
 
-    private fun Document.extractPublishedTimeMeta() = trySelect("$PUBLISHED_TIME_META_PROPERTY meta") {
-        getElementsByTag(CssName.META_TAG).find {
-            it.attr(CssName.META_PROPERTY_ATTRIBUTE) == PUBLISHED_TIME_META_PROPERTY
+    private fun Document.findAuthor() =
+        trySelect("author (by ${XPath.POST_AUTHOR_META})") {
+            xpath(XPath.POST_AUTHOR_META)
         }
-    }
 
-    private fun Document.findImage() = trySelect("image (by ${CssName.POST_IMAGE_CLASS})") {
-        getFirstByClass(CssName.POST_IMAGE_CLASS)
-    }
+    private fun Document.findImageComponent() =
+        trySelect("image (by ${XPath.POST_IMAGE})") {
+            xpath(XPath.POST_IMAGE)
+        }
 
-    private fun Document.findTextContainer() = trySelect("text container (by ${CssName.POST_TEXT_CONTAINER_CLASS})") {
-        getFirstByClass(CssName.POST_TEXT_CONTAINER_CLASS)
-    }
-
-    private companion object {
-
-        private const val PUBLISHED_TIME_META_PROPERTY = "article:published_time"
-    }
+    private fun Document.findTextContainer() =
+        trySelect("text container (by ${XPath.POST_TEXT})") {
+            xpath(XPath.POST_TEXT)
+        }
 }

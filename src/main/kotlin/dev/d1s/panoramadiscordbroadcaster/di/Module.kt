@@ -56,7 +56,7 @@ fun setupDi() {
 }
 
 fun Module.application() {
-    singleOf(::NeuralMeduzaDiscordBroadcasterApplication)
+    singleOf(::PanoramaDiscordBroadcasterApplication)
 }
 
 fun Module.applicationConfigFactory() {

@@ -16,13 +16,11 @@
 
 package dev.d1s.panoramadiscordbroadcaster
 
-import java.time.Instant
-
 data class Post(
     val url: String,
     val title: String,
     val categories: List<PostCategory>,
-    val date: Instant,
+    val author: String,
     val image: PostImage,
     val text: String
 )

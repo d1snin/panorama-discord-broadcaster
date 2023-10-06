@@ -23,6 +23,6 @@ fun main() {
     setupDi()
 
     runBlocking {
-        NeuralMeduzaDiscordBroadcasterApplication().run()
+        PanoramaDiscordBroadcasterApplication().run()
     }
 }

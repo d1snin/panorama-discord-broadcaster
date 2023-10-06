@@ -64,7 +64,13 @@ class DefaultLatestPostUrlChangeListener : LatestPostUrlChangeListener, KoinComp
         }
 
         val launchedJob = listeningScope.launch {
-            listenForChangesCatching(handler)
+            try {
+                listenForChangesCatching(handler)
+            } catch (error: Throwable) {
+                log.e(error) {
+                    "An error occurred."
+                }
+            }
         }
 
         job = launchedJob

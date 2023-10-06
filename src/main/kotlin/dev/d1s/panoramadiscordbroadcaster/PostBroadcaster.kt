@@ -101,12 +101,11 @@ class DefaultPostBroadcaster : PostBroadcaster, KoinComponent {
             val post = this@toDiscordEmbed
 
             setColor()
-            setAuthor()
+            setAuthor(post)
             setTitle(post)
             setDescription(post)
             setImageUrl(post)
             setFooter()
-            setTimestamp(post)
         }
 
         return embed.build()
@@ -116,9 +115,13 @@ class DefaultPostBroadcaster : PostBroadcaster, KoinComponent {
         setColor(EMBED_COLOR)
     }
 
-    private fun WebhookEmbedBuilder.setAuthor() {
+    private fun WebhookEmbedBuilder.setAuthor(post: Post) {
+        val name = "%s — %s".format(AUTHOR_NAME, post.author)
+
         val embedAuthor = WebhookEmbed.EmbedAuthor(
-            AUTHOR_NAME, AUTHOR_ICON_URL, EMBED_AUTHOR_URL
+            name,
+            AUTHOR_ICON_URL,
+            EMBED_AUTHOR_URL
         )
 
         setAuthor(embedAuthor)
@@ -167,10 +170,6 @@ class DefaultPostBroadcaster : PostBroadcaster, KoinComponent {
         )
 
         setFooter(embedFooter)
-    }
-
-    private fun WebhookEmbedBuilder.setTimestamp(post: Post) {
-        setTimestamp(post.date)
     }
 
     private fun String.bold() = "**$this**"

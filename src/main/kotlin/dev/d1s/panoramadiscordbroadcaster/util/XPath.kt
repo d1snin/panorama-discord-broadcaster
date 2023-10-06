@@ -16,12 +16,13 @@
 
 package dev.d1s.panoramadiscordbroadcaster.util
 
-object CssName {
+object XPath {
 
-    const val HREF_ATTRIBUTE = "href"
-    const val CONTENT_ATTRIBUTE = "content"
-    const val DATA_BG_IMAGE_WEBP_ATTRIBUTE = "data-bg-image-webp"
+    const val LATEST_POST = "/html/body/div[3]/div/div/div[2]/ul[1]/li[1]/a"
 
-    const val LINK_TAG = "a"
-    const val PARAGRAPH_TAG = "p"
+    const val POST_TITLE = "/html/body/div[3]/div[2]/div/div[1]/div[1]/div/h1"
+    const val POST_CATEGORIES = "/html/body/div[3]/div[2]/div/div[1]/div[2]/div/div[3]"
+    const val POST_AUTHOR_META = "/html/body/div[3]/div[2]/div/div[1]/div[2]/div/div[2]/meta"
+    const val POST_IMAGE = "/html/body/div[3]/div[1]/div/div/div"
+    const val POST_TEXT = "/html/body/div[3]/div[2]/div/div[1]/div[3]"
 }

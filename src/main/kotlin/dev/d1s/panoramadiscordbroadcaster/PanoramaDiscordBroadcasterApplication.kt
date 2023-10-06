@@ -21,7 +21,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.lighthousegames.logging.logging
 
-class NeuralMeduzaDiscordBroadcasterApplication : KoinComponent {
+class PanoramaDiscordBroadcasterApplication : KoinComponent {
 
     private val broadcaster by inject<PostBroadcaster>()
 
@@ -31,7 +31,7 @@ class NeuralMeduzaDiscordBroadcasterApplication : KoinComponent {
 
     suspend fun run() {
         log.i {
-            "Neural Meduza Discord broadcaster ($VERSION) is starting..."
+            "Panorama Discord broadcaster ($VERSION) is starting..."
         }
 
         redisClientFactory.connect()

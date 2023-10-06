@@ -22,4 +22,4 @@ import org.jsoup.nodes.Element
 
 inline fun trySelect(selectionName: String, block: () -> Element?) = block() ?: error("Could not extract $selectionName")
 
-fun Document.getFirstByClass(className: String) = getElementsByClass(className).first()
+fun Document.xpath(path: String) = selectXpath(path).first()

@@ -16,9 +16,8 @@
 
 package dev.d1s.panoramadiscordbroadcaster
 
-import dev.d1s.panoramadiscordbroadcaster.util.CssName
-import dev.d1s.panoramadiscordbroadcaster.util.getFirstByClass
-import dev.d1s.panoramadiscordbroadcaster.util.trySelect
+import dev.d1s.panoramadiscordbroadcaster.util.*
+import io.ktor.http.*
 import org.jsoup.nodes.Document
 import org.koin.core.component.KoinComponent
 import org.lighthousegames.logging.logging
@@ -41,13 +40,13 @@ class MainPageParser : Parser<FetchedMainPage, MainPage>, KoinComponent {
 
     private fun Document.extractLatestPostUrl(): String {
         val link = findLink()
+        val relativeUrl = link.attr(CssName.HREF_ATTRIBUTE)
 
-        return link.attr(CssName.HREF_ATTRIBUTE)
+        return Urls.PanoramaBaseUrlBuilder.apply { path(relativeUrl) }.buildString()
     }
 
-    private fun Document.findLink() = trySelect("post link (by .${CssName.POST_IMAGE_CLASS})") {
-        val thumbnail = getFirstByClass(CssName.POST_IMAGE_CLASS)
-
-        thumbnail?.parent()
-    }
+    private fun Document.findLink() =
+        trySelect("post link (by ${XPath.LATEST_POST})") {
+            xpath(XPath.LATEST_POST)
+        }
 }

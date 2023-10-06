@@ -37,7 +37,19 @@ class PostFetcher : Fetcher<FetchedPost>, KoinComponent {
         }
 
         val document = withContext(Dispatchers.IO) {
-            Jsoup.connect(url).get()
+            try {
+                Jsoup.connect(url).get()
+            } catch (error: Throwable) {
+                log.e(error) {
+                    "Error fetching post at $url"
+                }
+
+                throw error
+            }
+        }
+
+        log.d {
+            "Loaded post document: ${document.title()}"
         }
 
         return FetchedPost(url, document)
