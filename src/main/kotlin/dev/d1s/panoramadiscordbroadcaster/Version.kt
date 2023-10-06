@@ -16,4 +16,4 @@
 
 package dev.d1s.panoramadiscordbroadcaster
 
-const val VERSION = "1.2.4"
+const val VERSION = "2.0.0"
