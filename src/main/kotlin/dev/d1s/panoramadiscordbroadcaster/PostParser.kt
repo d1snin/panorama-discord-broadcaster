@@ -74,8 +74,7 @@ class PostParser : Parser<FetchedPost, Post>, KoinComponent {
 
     private fun Document.extractImage(): PostImage {
         val component = findImageComponent()
-        val webpImageSrc = component.attr(CssName.DATA_BG_IMAGE_WEBP_ATTRIBUTE)
-        val imageSrc = webpImageSrc.removeSuffix(".webp")
+        val imageSrc = component.attr(CssName.DATA_BG_IMAGE_WEBP_ATTRIBUTE)
 
         return PostImage(url = imageSrc)
     }
