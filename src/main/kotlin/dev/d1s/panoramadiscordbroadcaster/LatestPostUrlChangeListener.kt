@@ -42,6 +42,8 @@ class DefaultLatestPostUrlChangeListener : LatestPostUrlChangeListener, KoinComp
 
     private val mainPageParser by inject<Parser<FetchedMainPage, MainPage>>(Qualifier.MainPageParser)
 
+    private val postBroadcaster by inject<PostBroadcaster>()
+
     private val config by inject<ApplicationConfig>()
 
     private val redis by lazy {
@@ -102,7 +104,10 @@ class DefaultLatestPostUrlChangeListener : LatestPostUrlChangeListener, KoinComp
             val currentPostUrl = mainPage.latestPostUrl
             val savedPostUrl = getLatestPostUrl()
 
-            if (currentPostUrl != savedPostUrl) {
+            val post = postBroadcaster.load(currentPostUrl)
+            val imageExists = post.image.url != ""
+
+            if (currentPostUrl != savedPostUrl && imageExists) {
                 log.i {
                     "Change detected..."
                 }

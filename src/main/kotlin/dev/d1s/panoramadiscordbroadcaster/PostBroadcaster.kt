@@ -23,6 +23,7 @@ import club.minnced.discord.webhook.send.WebhookMessage
 import club.minnced.discord.webhook.send.WebhookMessageBuilder
 import dev.d1s.panoramadiscordbroadcaster.di.Qualifier
 import dev.d1s.panoramadiscordbroadcaster.translation.PostTranslator
+import dev.d1s.panoramadiscordbroadcaster.util.Url
 import dev.d1s.panoramadiscordbroadcaster.util.Urls
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -34,6 +35,8 @@ import org.lighthousegames.logging.logging
 interface PostBroadcaster {
 
     suspend fun start()
+
+    suspend fun load(postUrl: Url): Post
 }
 
 class DefaultPostBroadcaster : PostBroadcaster, KoinComponent {
@@ -58,8 +61,11 @@ class DefaultPostBroadcaster : PostBroadcaster, KoinComponent {
         }
 
         val job = latestPostUrlChangeListener.onPostUrlChange { url ->
-            val fetchedPost = postFetcher.fetch(url)
-            val post = postParser.parse(fetchedPost)
+            val post = load(url)
+
+            log.i {
+                "Broadcasting post $post"
+            }
 
             val translatedPost = postTranslator.translate(post) ?: post
 
@@ -75,6 +81,12 @@ class DefaultPostBroadcaster : PostBroadcaster, KoinComponent {
         }
 
         job.join()
+    }
+
+    override suspend fun load(postUrl: Url): Post {
+        val fetchedPost = postFetcher.fetch(postUrl)
+
+        return postParser.parse(fetchedPost)
     }
 
     private fun launchMessage(message: WebhookMessage) {
